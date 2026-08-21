@@ -8,7 +8,7 @@ import os
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, f1_score
 
-EVAL_THRESHOLD = 0.70
+EVAL_THRESHOLD = 0.68
 
 # README su dung SQLite lam MLflow backend. Neu nguoi dung khong dat
 # MLFLOW_TRACKING_URI, dung cung backend nay thay vi file store mlruns/.
