@@ -1,0 +1,16 @@
+[Unit]
+Description=MLOps Model Inference Server
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=nguyenloc
+WorkingDirectory=/home/nguyenloc
+Environment="GCS_BUCKET=mlops-day21-506213-data"
+ExecStart=/home/nguyenloc/venv/bin/python /home/nguyenloc/src/serve.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
