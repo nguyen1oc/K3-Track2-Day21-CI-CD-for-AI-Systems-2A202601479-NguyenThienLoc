@@ -49,6 +49,7 @@ jobs:
       id-token: write
     outputs:
       accuracy: ${{ steps.read_metrics.outputs.accuracy }}
+      f1_score: ${{ steps.read_metrics.outputs.f1_score }}
 
     steps:
       - uses: actions/checkout@v4
@@ -78,7 +79,9 @@ jobs:
         id: read_metrics
         run: |
           ACC=$(python -c "import json; print(json.load(open('outputs/metrics.json'))['accuracy'])")
+          F1=$(python -c "import json; print(json.load(open('outputs/metrics.json'))['f1_score'])")
           echo "accuracy=$ACC" >> "$GITHUB_OUTPUT"
+          echo "f1_score=$F1" >> "$GITHUB_OUTPUT"
 
       - name: Upload model to Cloud Storage
         env:
@@ -104,7 +107,7 @@ jobs:
 
   # ---------------------------------------------------------------------------
   # JOB 3 - EVAL
-  # Kiem tra nguong chat luong (accuracy >= 0.68).
+  # Kiem tra nguong chat luong (f1_score >= 0.68).
   # Pipeline dung lai o day neu mo hinh chua dat yeu cau.
   # Chi chay khi Job 2 (Train) hoan thanh thanh cong.
   # ---------------------------------------------------------------------------
@@ -116,15 +119,15 @@ jobs:
 
       - name: Check eval gate
         env:
-          ACCURACY: ${{ needs.train.outputs.accuracy }}
+          F1_SCORE: ${{ needs.train.outputs.f1_score }}
         run: |
           python - <<'EOF'
           import os
 
-          acc = float(os.environ["ACCURACY"])
-          print(f"Model accuracy: {acc:.4f}")
-          if acc < 0.68:
-              raise SystemExit(f"FAILED: accuracy {acc:.4f} < 0.68. Huy deploy.")
+          f1 = float(os.environ["F1_SCORE"])
+          print(f"Model F1 score: {f1:.4f}")
+          if f1 < 0.68:
+              raise SystemExit(f"FAILED: F1 score {f1:.4f} < 0.68. Huy deploy.")
           print("PASSED: model dat eval gate, bat dau deploy.")
           EOF
 
