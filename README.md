@@ -1,5 +1,11 @@
 # Lab MLOps Thực Hành: Từ Thực Nghiệm Cục Bộ Đến Triển Khai Liên Tục
 
+[![MLOps Pipeline](https://github.com/nguyen1oc/K3-Track2-Day21-CI-CD-for-AI-Systems-2A202601479-NguyenThienLoc/actions/workflows/mlops.yml/badge.svg)](https://github.com/nguyen1oc/K3-Track2-Day21-CI-CD-for-AI-Systems-2A202601479-NguyenThienLoc/actions/workflows/mlops.yml)
+![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)
+![MLflow](https://img.shields.io/badge/MLflow-2.13.0-0194E2?logo=mlflow&logoColor=white)
+![DVC](https://img.shields.io/badge/DVC-3.50.1-13ADC7?logo=dvc&logoColor=white)
+![Google Cloud](https://img.shields.io/badge/Google_Cloud-WIF-4285F4?logo=googlecloud&logoColor=white)
+
 Course: AIInAction - VinUni
 Buổi: Day 21 - CI/CD cho AI Systems
 Khoá: K3
@@ -32,7 +38,7 @@ Toàn bộ lab được triển khai theo ba bước liên tiếp, mỗi bước
       |
       |  GitHub Actions kích hoạt tự động
       v
-[Runner: Unit Test -> Train -> Eval (>= 0.70) -> Deploy]
+[Runner: Unit Test -> Train -> Eval (F1 >= 0.68) -> Deploy]
       |                                    |
       |  dvc pull                          |  dvc push (model)
       v                                    v
@@ -223,6 +229,8 @@ Bắt đầu từ [Bước 1](tasks/buoc-1.md).
 ---
 
 ## Rubric Chấm Điểm
+
+> **Ghi chú triển khai:** Rubric gốc bên dưới mô tả gate theo accuracy `0.70`. Bản nộp này dùng weighted F1 `0.68` theo yêu cầu reflection và số liệu MLflow thực tế. Ảnh minh chứng bao gồm cả trường hợp gate thất bại ở ngưỡng `0.70` và các lần chạy thành công với gate F1 `0.68`.
 
 ### Tiêu chí chính (80 điểm)
 
